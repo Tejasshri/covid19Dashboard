@@ -1,0 +1,27 @@
+.footer {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.footer-light {
+  color: black;
+}
+
+.footer-logo-title {
+  font-weight: 500;
+  font-size: 30px;
+  font-family: bree serif;
+  margin: 4px;
+}
+
+.footer-logo-title span {
+  color: rgba(0, 80, 240, 1);
+}
+
+.footer-icon {
+  margin: 20px;
+}
