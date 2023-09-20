@@ -66,15 +66,21 @@
 }
 
 .search-result-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   border: 1px solid transparent;
   color: white;
   padding: 10px;
 }
 .search-result-item:hover {
   border: 1px solid white;
+}
+
+.search-link {
+  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: inherit;
+  text-decoration: none;
 }
 
 .search-box-container p {
@@ -133,24 +139,25 @@
 }
 
 .state-wise-data-table {
-  border: 2px solid white;
+  border: 2px solid grey;
   width: 90%;
   border-radius: 6px;
-  border-collapse: collapse;
+  border-collapse: ;
   font-family: Roboto;
+  margin: 40px 0;
 }
 
 .state-wise-data-table thead tr {
-  border-bottom: 2px solid white;
+  border: 2px solid grey;
 }
 
 .state-wise-data-table thead tr th {
   color: #f0f0f0;
-  text-align: left;
+  text-align: center;
   padding-left: 10px;
 }
 
-.first-table-head {
+.first-head {
   display: flex;
   align-items: center;
 }
@@ -160,9 +167,31 @@
   margin: 10px;
   border: 0;
   outline: none;
-  height: 30px;
 }
 
 .state-wise-data-table tbody {
   color: grey;
+}
+
+.state-wise-data-table tbody tr td {
+  text-align: center;
+  padding: 20px;
+}
+
+.state-name-col {
+  text-align: left !important;
+}
+
+.confirmed-col {
+  color: red;
+}
+
+.active-col {
+  color: rgba(0, 100, 250, 1);
+}
+.recovered-col {
+  color: green;
+}
+.deceased-col {
+  color: ;
 }

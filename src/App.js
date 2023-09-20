@@ -5,6 +5,7 @@ import Select from 'react-select'
 ///     Routes     ///
 import NotFound from './components/NotFound'
 import Home from './components/Home'
+import About from './components/About'
 ///     Routes     ///
 import CovidContext from './context/CovidContext'
 
@@ -157,14 +158,8 @@ const statesList = [
   },
 ]
 
-const options = statesList.map(each => ({
-  value: each.state_code,
-  label: each.state_name,
-}))
-
 class App extends Component {
   state = {
-    searchState: '',
     isThemeLight: false,
   }
 
@@ -184,6 +179,7 @@ class App extends Component {
       >
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route exact path="/about" component={About} />
           <Route exact path="/not-found" component={NotFound} />
           <Redirect to="/not-found" />
         </Switch>

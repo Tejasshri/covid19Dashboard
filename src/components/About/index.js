@@ -1,21 +1,16 @@
-import {Component} from 'react'
+import Header from '../Header'
+import Footer from '../Footer'
 
 import './index.css'
 
-class Counter extends Component {
-  render() {
-    return (
-      <div>
-        <button type="button" onClick={this.onDecrement}>
-          -
-        </button>
-        <div>0</div>
-        <button type="button" onClick={this.onIncrement}>
-          +
-        </button>
-      </div>
-    )
-  }
+function About() {
+  return (
+    <div>
+      <Header />
+      <h1>About We have to made</h1>
+      <Footer />
+    </div>
+  )
 }
 
-export default Counter
+export default About

@@ -1,5 +1,5 @@
 import React from 'react'
-import {withRouter} from 'react-router-dom'
+import {withRouter, Link} from 'react-router-dom'
 import {BsSearch, BsSortDownAlt, BsSortDown} from 'react-icons/bs'
 import {BiChevronRightSquare} from 'react-icons/bi'
 import {AiOutlineCheckCircle} from 'react-icons/ai'
@@ -201,15 +201,17 @@ class HomeBody extends React.Component {
       <ul className="search-result-container">
         {filterData.map(each => (
           <li className="search-result-item" key={each.state_code}>
-            <p>{each.state_name}</p>
-            <button
-              className="state-button"
-              type="button"
-              onClick={() => this.onClickStateButton(each)}
-            >
-              <p>{each.state_code}</p>
-              <BiChevronRightSquare size={20} />
-            </button>
+            <Link to={`/states/${each.state_code}`} className="search-link">
+              <p>{each.state_name}</p>
+              <button
+                className="state-button"
+                type="button"
+                onClick={() => this.onClickStateButton(each)}
+              >
+                <p>{each.state_code}</p>
+                <BiChevronRightSquare size={20} />
+              </button>
+            </Link>
           </li>
         ))}
       </ul>
@@ -244,7 +246,7 @@ class HomeBody extends React.Component {
         <thead>
           <tr>
             <th className="first-head">
-              States/UT
+              <p>States/UT</p>
               <button type="button" className="sort-button">
                 <BsSortDownAlt size="20" color="grey" />
               </button>
@@ -264,13 +266,13 @@ class HomeBody extends React.Component {
             const stateObj = covidData[`${each.state_code}`]
             const {total} = stateObj
             return (
-              <tr key={each.state_code}>
-                <td>{each.state_name}</td>
-                <td>{total.confirmed}</td>
-                <td>Active</td>
-                <td>{total.recovered}</td>
-                <td>{total.deceased}</td>
-                <td>{total.confirmed}</td>
+              <tr key={each.state_code} width="20%">
+                <td className="state-name-col">{each.state_name}</td>
+                <td className="confirmed-col">{total.confirmed}</td>
+                <td className="active-col">Active</td>
+                <td className="recovered-col">{total.recovered}</td>
+                <td className="deceased-col">{total.deceased}</td>
+                <td className="population-col">{total.confirmed}</td>
               </tr>
             )
           })}
