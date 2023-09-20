@@ -1,0 +1,168 @@
+.home-body,
+.home-body-light {
+  background-color: black;
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.home-body-light {
+  background-color: white;
+}
+
+.search-box-container {
+  width: 50%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  @media (max-width: 768px) {
+    width: 75%;
+  }
+}
+
+.search-box,
+.search-box-light {
+  background-color: rgba(50, 50, 50);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.search-box-light {
+  background-color: #f0f0f0;
+}
+
+.search-button {
+  background-color: transparent;
+  border: 0;
+  outline: none;
+}
+
+.search-input {
+  height: 70px;
+  flex-grow: 1;
+  background-color: transparent;
+  border: 0;
+  outline: none;
+}
+
+::placeholder {
+  color: grey;
+  font-size: 16px;
+}
+
+.search-result-container {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(50, 50, 50);
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.search-result-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid transparent;
+  color: white;
+  padding: 10px;
+}
+.search-result-item:hover {
+  border: 1px solid white;
+}
+
+.search-box-container p {
+  margin: 3px;
+}
+
+.state-button {
+  background-color: #0d0d0d;
+  border: 0;
+  outline: none;
+  color: orange;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 60px;
+  border-radius: 5px;
+  padding: 4px;
+}
+
+.state-button:hover {
+  background-color: greenyellow;
+}
+
+.covid-total-detail-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 90%;
+}
+
+.covid-details-box-1,
+.covid-details-box-2,
+.covid-details-box-3,
+.covid-details-box-4 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 24px;
+  margin: 0 30px;
+  font-weight: 500;
+}
+
+.covid-details-box-1 {
+  color: red;
+}
+.covid-details-box-2 {
+  color: rgba(0, 100, 250, 1);
+}
+.covid-details-box-3 {
+  color: green;
+}
+.covid-details-box-4 {
+  color: grey;
+}
+
+.state-wise-data-table {
+  border: 2px solid white;
+  width: 90%;
+  border-radius: 6px;
+  border-collapse: collapse;
+  font-family: Roboto;
+}
+
+.state-wise-data-table thead tr {
+  border-bottom: 2px solid white;
+}
+
+.state-wise-data-table thead tr th {
+  color: #f0f0f0;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.first-table-head {
+  display: flex;
+  align-items: center;
+}
+
+.sort-button {
+  background-color: transparent;
+  margin: 10px;
+  border: 0;
+  outline: none;
+  height: 30px;
+}
+
+.state-wise-data-table tbody {
+  color: grey;
+}

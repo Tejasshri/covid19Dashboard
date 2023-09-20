@@ -5,10 +5,12 @@
   align-items: center;
   text-align: center;
   padding: 0 20px;
+  background-color: black;
 }
 
 .footer-light {
   color: black;
+  background-color: white;
 }
 
 .footer-logo-title {
