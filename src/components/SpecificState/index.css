@@ -1,6 +1,6 @@
 .state-route,
 .state-route-light {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   background-color: black;
@@ -69,7 +69,8 @@
   border-radius: 10px;
   border: 0;
   @media (max-width: 768px) {
-    width: 40%;
+    width: 45%;
+    margin-bottom: 30px;
   }
 }
 

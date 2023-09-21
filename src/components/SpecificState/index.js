@@ -161,10 +161,10 @@ const apiStatusList = {
 }
 
 const tabsList = {
-  confirmed: 'CONFIRMED',
-  active: 'ACTIVE',
-  recovered: 'RECOVERED',
-  deceased: 'DECEASED',
+  confirmed: 'confirmed',
+  active: 'active',
+  recovered: 'recovered',
+  deceased: 'deceased',
 }
 
 class SpeificState extends React.Component {
@@ -206,8 +206,7 @@ class SpeificState extends React.Component {
   renderStateRouteContainer = isThemeLight => {
     const {stateData, stateName, activeTab} = this.state
     const {total, meta, districts} = stateData
-    const districtList = districts
-    console.log(districtList)
+    const districtList = Object.keys(districts)
 
     return (
       <>
