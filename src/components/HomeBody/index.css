@@ -145,6 +145,9 @@
   border-collapse: ;
   font-family: Roboto;
   margin: 40px 0;
+  @media (max-width: 500px) {
+    display: none;
+  }
 }
 
 .state-wise-data-table thead tr {
@@ -155,6 +158,9 @@
   color: #f0f0f0;
   text-align: center;
   padding-left: 10px;
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
 }
 
 .first-head {
@@ -176,6 +182,9 @@
 .state-wise-data-table tbody tr td {
   text-align: center;
   padding: 20px;
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
 }
 
 .state-name-col {

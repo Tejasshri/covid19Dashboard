@@ -84,3 +84,15 @@
 button {
   cursor: pointer;
 }
+
+.mobile-header-link-container {
+  list-style-type: none;
+  padding: 10px;
+  background-color: #272727;
+  display: none;
+  margin: 0 !important;
+  justify-content: center;
+  @media (max-width: 768px) {
+    display: flex;
+  }
+}

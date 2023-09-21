@@ -1,9 +1,8 @@
 import React from 'react'
 import {withRouter, Link} from 'react-router-dom'
-import {BsSearch, BsSortDownAlt, BsSortDown} from 'react-icons/bs'
+import {BsSearch} from 'react-icons/bs'
+import {FcGenericSortingDesc, FcGenericSortingAsc} from 'react-icons/fc'
 import {BiChevronRightSquare} from 'react-icons/bi'
-import {AiOutlineCheckCircle} from 'react-icons/ai'
-import {MdSort} from 'react-icons/md'
 
 import CovidContext from '../../context/CovidContext'
 import LoadingView from '../LoadingView'
@@ -154,7 +153,7 @@ const statesList = [
     state_code: 'WB',
     state_name: 'West Bengal',
   },
-]
+].reverse()
 
 const apiStatusList = {
   initial: 'INITIAL',
@@ -168,6 +167,7 @@ class HomeBody extends React.Component {
     searchInput: '',
     apiStatus: apiStatusList.initial,
     covidData: [],
+    sort: true,
   }
 
   componentDidMount() {
@@ -180,6 +180,7 @@ class HomeBody extends React.Component {
     const response = await fetch(apiUrl)
     if (response.ok) {
       const data = await response.json()
+      console.log(data)
       this.setState({apiStatus: apiStatusList.success, covidData: data})
     } else {
       this.setState({apiStatus: apiStatusList.failure})
@@ -201,7 +202,7 @@ class HomeBody extends React.Component {
       <ul className="search-result-container">
         {filterData.map(each => (
           <li className="search-result-item" key={each.state_code}>
-            <Link to={`/states/${each.state_code}`} className="search-link">
+            <Link to={`/state/${each.state_code}`} className="search-link">
               <p>{each.state_name}</p>
               <button
                 className="state-button"
@@ -221,9 +222,9 @@ class HomeBody extends React.Component {
   getTotalOfData = () => {
     const {covidData} = this.state
     let [confirmedTotal, deceasedTotal, recoveredTotal] = [0, 0, 0]
+
     statesList.forEach(obj => {
       const stateObj = covidData[`${obj.state_code}`]
-      console.log(stateObj)
       const {total} = stateObj
       const {confirmed, deceased, recovered} = total
       confirmedTotal += confirmed
@@ -239,19 +240,51 @@ class HomeBody extends React.Component {
     }
   }
 
+  onSortReverse = () => {
+    this.setState({sort: false})
+  }
+
+  onSort = () => {
+    this.setState({sort: true})
+  }
+
   renderStateWiseDataTable = () => {
     const {covidData} = this.state
+    const {sort} = this.state
+
+    const newList = []
+    if (sort) {
+      statesList.forEach(each => newList.unshift(each))
+    } else {
+      statesList.forEach(each => newList.push(each))
+    }
     return (
       <table className="state-wise-data-table">
         <thead>
           <tr>
             <th className="first-head">
               <p>States/UT</p>
-              <button type="button" className="sort-button">
-                <BsSortDownAlt size="20" color="grey" />
+              <button
+                type="button"
+                className="sort-button"
+                onClick={this.onSort}
+                data-testid="ascendingSort"
+              >
+                <FcGenericSortingAsc
+                  size="20"
+                  color={sort ? 'white' : 'grey'}
+                />
               </button>
-              <button type="button" className="sort-button">
-                <BsSortDown size="20" color="grey" />
+              <button
+                type="button"
+                className="sort-button"
+                onClick={this.onSortReverse}
+                data-testid="descendingSort"
+              >
+                <FcGenericSortingDesc
+                  size="20"
+                  color={!sort ? 'white' : 'grey'}
+                />
               </button>
             </th>
             <th>Confirmed</th>
@@ -262,17 +295,19 @@ class HomeBody extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {statesList.map(each => {
+          {newList.map(each => {
             const stateObj = covidData[`${each.state_code}`]
-            const {total} = stateObj
+            const {total, meta} = stateObj
             return (
               <tr key={each.state_code} width="20%">
                 <td className="state-name-col">{each.state_name}</td>
                 <td className="confirmed-col">{total.confirmed}</td>
-                <td className="active-col">Active</td>
+                <td className="active-col">
+                  {total.confirmed - total.recovered - total.deceased}
+                </td>
                 <td className="recovered-col">{total.recovered}</td>
                 <td className="deceased-col">{total.deceased}</td>
-                <td className="population-col">{total.confirmed}</td>
+                <td className="population-col">{meta.population}</td>
               </tr>
             )
           })}
@@ -339,7 +374,7 @@ class HomeBody extends React.Component {
     const {apiStatus} = this.state
     switch (apiStatus) {
       case apiStatusList.inprogress:
-        return <LoadingView />
+        return <LoadingView testId="homeRouteLoader" />
       case apiStatusList.success:
         return this.renderCovidView()
       default:

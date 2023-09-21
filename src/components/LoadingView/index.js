@@ -7,8 +7,8 @@ const loadingContainer = {
   justifyContent: 'center',
 }
 
-const LoadingView = () => (
-  <div style={loadingContainer}>
+const LoadingView = ({testId}) => (
+  <div style={loadingContainer} data-testid={testId}>
     <Loader type="TailSpin" color="#15f4ff" strokeWidth="5" height="50" />
   </div>
 )

@@ -1,0 +1,88 @@
+.state-route,
+.state-route-light {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+}
+.state-route-light {
+  background-color: white;
+}
+
+.state-route-container {
+  flex-grow: 1;
+  color: white;
+  padding: 20px 60px;
+  align-self: center;
+  width: 90%;
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
+}
+
+.data-update-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.state-name-heading {
+  font-weight: 600;
+  font-size: 20px;
+  color: rgb(0, 150, 255);
+  background: rgba(0, 150, 255, 0.3);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.state-tested-data p {
+  color: grey;
+  margin: 4px;
+}
+
+.date-para {
+  margin: 0;
+  font-size: 13px;
+  color: rgba(200, 200, 200, 1);
+}
+
+.state-covid-total-detail-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: 50px;
+}
+
+.state-covid-details-box-1,
+.state-covid-details-box-2,
+.state-covid-details-box-3,
+.state-covid-details-box-4 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 24px;
+  margin: 0 0px;
+  font-weight: 500;
+  width: 20%;
+  border-radius: 10px;
+  border: 0;
+  @media (max-width: 768px) {
+    width: 40%;
+  }
+}
+
+.state-covid-details-box-1 {
+  color: red;
+}
+
+.state-covid-details-box-2 {
+  color: rgba(0, 100, 250, 1);
+}
+.state-covid-details-box-3 {
+  color: green;
+}
+.state-covid-details-box-4 {
+  color: grey;
+}
