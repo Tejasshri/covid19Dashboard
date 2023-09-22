@@ -7,8 +7,8 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  overflow: auto;
   margin-top: 30px;
+  padding: 20px;
 }
 
 .bar-chart {
@@ -18,12 +18,36 @@
   width: 100px;
 }
 
+.line-chart-container-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  margin-top: 30px;
+  border: 0px solid red;
+  align-items: center;
+}
+
 .line-chart-container {
   height: 500px;
   display: flex;
+  flex-direction: ;
   justify-content: center;
   width: 100%;
-  overflow: auto;
-  margin-top: 30px;
-  border: 1px solid red;
+  margin-top: 50px;
+  border: 0px solid red;
+  overflow-x: auto;
+  overflow-y: unset;
+}
+
+.spread-trends-heading {
+  font-weight: 500;
+  font-family: bree serif;
+  align-self: center;
+  text-align: center;
+  margin-top: 50px;
+  background-color: aquamarine;
+  color: black;
+  border-radius: 10px;
+  padding: 10px;
 }

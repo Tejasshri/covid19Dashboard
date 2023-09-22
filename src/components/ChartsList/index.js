@@ -25,6 +25,19 @@ class ChartsList extends React.Component {
     this.getStateTimelineDetails()
   }
 
+  getBgColor = tab => {
+    switch (tab) {
+      case 'confirmed':
+        return 'rgba(255,0,0,.1)'
+      case 'deceased':
+        return 'rgba(100,100,100,.2)'
+      case 'recovered':
+        return 'rgb(0,255,50, .2)'
+      default:
+        return 'rgba(0,150,255,.2)'
+    }
+  }
+
   getColor = tab => {
     switch (tab) {
       case 'confirmed':
@@ -54,17 +67,35 @@ class ChartsList extends React.Component {
     }))
 
     return (
-      <LineChart data={activeCategoryDataList} width={800} height={500}>
-        <XAxis dataKey="date" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Line dataKey="dailyCount" fill={this.getColor('')} />
-      </LineChart>
+      <div className="line-chart-container">
+        <LineChart
+          data={activeCategoryDataList}
+          width={800}
+          height={500}
+          style={{backgroundColor: this.getBgColor(category)}}
+        >
+          <XAxis dataKey="date" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Line
+            dataKey="dailyCount"
+            fill={this.getColor(category)}
+            name={category}
+          />
+        </LineChart>
+      </div>
     )
   }
 
-  renderAllLineChart = () => <>{this.renderSpreadChart('confirmed')}</>
+  renderAllLineChart = () => (
+    <>
+      {this.renderSpreadChart('confirmed')}
+      {this.renderSpreadChart('active')}
+      {this.renderSpreadChart('recovered')}
+      {this.renderSpreadChart('deceased')}
+    </>
+  )
 
   renderBarChart = () => {
     const {activeTab, stateCode} = this.props
@@ -126,7 +157,10 @@ class ChartsList extends React.Component {
     ) : (
       <div className="charts-container-list">
         <div className="bar-chart-container">{this.renderBarChart()}</div>
-        <div className="line-chart-container">{this.renderAllLineChart()}</div>
+        <h1 className="spread-trends-heading">Daily Spread Trends</h1>
+        <div className="line-chart-container-list">
+          {this.renderAllLineChart()}
+        </div>
       </div>
     )
   }
