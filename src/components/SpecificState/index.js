@@ -4,6 +4,7 @@ import Header from '../Header'
 import Footer from '../Footer'
 import LoadingView from '../LoadingView'
 import CovidContext from '../../context/CovidContext'
+import ChartsList from '../ChartsList'
 import './index.css'
 
 const statesList = [
@@ -172,7 +173,10 @@ class SpeificState extends React.Component {
     apiStatus: apiStatusList.initial,
     stateData: {},
     stateName: '',
+    stateCode: '',
     activeTab: tabsList.confirmed,
+    isTimelineLoading: false,
+    timelineData: {},
   }
 
   componentDidMount() {
@@ -191,22 +195,42 @@ class SpeificState extends React.Component {
       const data = await response.json()
       const stateObj = data[id]
       console.log(stateObj)
-      const stateName = statesList.find(each => each.state_code === id)
-        .state_name
+      const state = statesList.find(each => each.state_code === id)
+
       this.setState({
         apiStatus: apiStatusList.success,
         stateData: stateObj,
-        stateName,
+        stateName: state.state_name,
+        stateCode: state.state_code,
       })
     } else {
       this.setState({apiStatus: apiStatusList.failure})
     }
   }
 
+  onClickTab = tabId => {
+    this.setState({activeTab: tabId})
+  }
+
   renderStateRouteContainer = isThemeLight => {
-    const {stateData, stateName, activeTab} = this.state
+    const {
+      stateData,
+      stateName,
+      stateCode,
+      activeTab,
+      isTimelineLoading,
+    } = this.state
     const {total, meta, districts} = stateData
-    const districtList = Object.keys(districts)
+    const districtNameList = Object.keys(districts)
+    const districtDataList = districtNameList.map(each => ({
+      districtName: each,
+      districtCaseCount:
+        activeTab === tabsList.active
+          ? total.confirmed - total.recovered - total.deceased
+          : total[activeTab],
+    }))
+    console.log(districtDataList)
+    districtDataList.sort((a, b) => a.districtCaseCount - b.districtCaseCount)
 
     return (
       <>
@@ -222,6 +246,7 @@ class SpeificState extends React.Component {
         </p>
         <div className="state-covid-total-detail-box">
           <button
+            onClick={() => this.onClickTab(tabsList.confirmed)}
             type="button"
             className="state-covid-details-box-1"
             style={{
@@ -238,11 +263,12 @@ class SpeificState extends React.Component {
             <p>{total.confirmed}</p>
           </button>
           <button
+            onClick={() => this.onClickTab(tabsList.active)}
             type="button"
             className="state-covid-details-box-2"
             style={{
               backgroundColor:
-                activeTab === tabsList.confirmed ? 'rgba(0,150,255,.2)' : null,
+                activeTab === tabsList.active ? 'rgba(0,150,255,.2)' : null,
             }}
           >
             <p>Active</p>
@@ -254,10 +280,12 @@ class SpeificState extends React.Component {
             <p>{total.confirmed - (total.deceased + total.recovered)}</p>
           </button>
           <button
+            type="button"
+            onClick={() => this.onClickTab(tabsList.recovered)}
             className="state-covid-details-box-3"
             style={{
               backgroundColor:
-                activeTab === tabsList.confirmed ? 'rgba(0,250,0,.2)' : null,
+                activeTab === tabsList.recovered ? 'rgba(0,250,0,.2)' : null,
             }}
           >
             <p>Recovered</p>
@@ -269,13 +297,13 @@ class SpeificState extends React.Component {
             <p>{total.recovered}</p>
           </button>
           <button
+            onClick={() => this.onClickTab(tabsList.deceased)}
             className="state-covid-details-box-4"
             style={{
               backgroundColor:
-                activeTab === tabsList.confirmed
-                  ? 'rgba(100,100,100,.3)'
-                  : null,
+                activeTab === tabsList.deceased ? 'rgba(100,100,100,.3)' : null,
             }}
+            type="button"
           >
             <p>Deceased</p>
             <img
@@ -286,7 +314,20 @@ class SpeificState extends React.Component {
             <p>{total.deceased}</p>
           </button>
         </div>
-        <ul className="district-list-container">hello</ul>
+        <h1>Top Districts</h1>
+        <ul className="district-with-count-list-container">
+          {districtDataList.map(each => (
+            <li className="district-count-item" key={each.districtName}>
+              <p>
+                {each.districtName === 'Unknown' ? 'Other' : each.districtName}
+              </p>
+              <p>{each.districtCaseCount}</p>
+            </li>
+          ))}
+        </ul>
+        <div>
+          <ChartsList activeTab={activeTab} stateCode={stateCode} />
+        </div>
       </>
     )
   }

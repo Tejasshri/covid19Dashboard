@@ -1,0 +1,29 @@
+.charts-container-list {
+  width: 100%;
+}
+
+.bar-chart-container {
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  overflow: auto;
+  margin-top: 30px;
+}
+
+.bar-chart {
+}
+
+.bar {
+  width: 100px;
+}
+
+.line-chart-container {
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  overflow: auto;
+  margin-top: 30px;
+  border: 1px solid red;
+}
