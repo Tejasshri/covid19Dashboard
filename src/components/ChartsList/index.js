@@ -67,13 +67,11 @@ class ChartsList extends React.Component {
     }))
 
     return (
-      <div className="line-chart-container">
-        <LineChart
-          data={activeCategoryDataList}
-          width={800}
-          height={500}
-          style={{backgroundColor: this.getBgColor(category)}}
-        >
+      <div
+        className="line-chart-container"
+        style={{backgroundColor: this.getBgColor(category)}}
+      >
+        <LineChart data={activeCategoryDataList} width={800} height={500}>
           <XAxis dataKey="date" />
           <YAxis />
           <Tooltip />
