@@ -8,7 +8,7 @@ const loadingContainer = {
 }
 
 const LoadingView = ({testId}) => (
-  <div style={loadingContainer} data-testid={testId}>
+  <div style={loadingContainer} testid={testId}>
     <Loader type="TailSpin" color="#15f4ff" strokeWidth="5" height="50" />
   </div>
 )

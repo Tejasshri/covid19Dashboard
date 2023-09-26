@@ -36,7 +36,7 @@ export default class About extends React.Component {
         <h1 className="vaccine-ready-heading">
           COVID-19 vaccines be ready for distribution
         </h1>
-        <ul className="faqs-unordered-list">
+        <ul className="faqs-unordered-list" testid="faqsUnorderedList">
           {faqsList.map(each => (
             <li className="faq-list-item" key={each.qno}>
               <p className="question">{each.question}</p>
@@ -59,7 +59,11 @@ export default class About extends React.Component {
           return (
             <div className={routeClassName}>
               <Header />
-              {isLoading ? <LoadingView /> : this.renderAboutContainer()}
+              {isLoading ? (
+                <LoadingView testId="aboutRouteLoader" />
+              ) : (
+                this.renderAboutContainer()
+              )}
               <Footer />
             </div>
           )

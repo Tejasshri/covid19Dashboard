@@ -175,8 +175,6 @@ class SpeificState extends React.Component {
     stateName: '',
     stateCode: '',
     activeTab: tabsList.confirmed,
-    isTimelineLoading: false,
-    timelineData: {},
   }
 
   componentDidMount() {
@@ -213,13 +211,7 @@ class SpeificState extends React.Component {
   }
 
   renderStateRouteContainer = isThemeLight => {
-    const {
-      stateData,
-      stateName,
-      stateCode,
-      activeTab,
-      isTimelineLoading,
-    } = this.state
+    const {stateData, stateName, stateCode, activeTab} = this.state
     const {total, meta, districts} = stateData
     const districtNameList = Object.keys(districts)
     const districtDataList = districtNameList.map(each => ({
@@ -244,8 +236,8 @@ class SpeificState extends React.Component {
         <p className="date-para">
           Last updated on {`${new Date(meta.last_updated)}`}
         </p>
-        <div className="state-covid-total-detail-box">
-          <button
+        <ul className="state-covid-total-detail-box">
+          <li
             onClick={() => this.onClickTab(tabsList.confirmed)}
             type="button"
             className="state-covid-details-box-1"
@@ -253,16 +245,17 @@ class SpeificState extends React.Component {
               backgroundColor:
                 activeTab === tabsList.confirmed ? 'rgba(255,0,0,.2)' : null,
             }}
+            testId="stateSpecificConfirmedCasesContainer"
           >
             <p>Confirmed</p>
             <img
               className="state-covid-details-icon"
-              alt="icon"
+              alt="state specific confirmed cases pic"
               src="https://res.cloudinary.com/dniq4wbom/image/upload/v1695199292/check-mark_1_je8igd.png"
             />
             <p>{total.confirmed}</p>
-          </button>
-          <button
+          </li>
+          <li
             onClick={() => this.onClickTab(tabsList.active)}
             type="button"
             className="state-covid-details-box-2"
@@ -270,16 +263,17 @@ class SpeificState extends React.Component {
               backgroundColor:
                 activeTab === tabsList.active ? 'rgba(0,150,255,.2)' : null,
             }}
+            testId="stateSpecificActiveCasesContainer"
           >
             <p>Active</p>
             <img
               className="state-covid-details-icon"
-              alt="icon"
+              alt="state specific active cases pic"
               src="https://res.cloudinary.com/dniq4wbom/image/upload/v1695199306/protection_1_qtlacm.png"
             />
             <p>{total.confirmed - (total.deceased + total.recovered)}</p>
-          </button>
-          <button
+          </li>
+          <li
             type="button"
             onClick={() => this.onClickTab(tabsList.recovered)}
             className="state-covid-details-box-3"
@@ -287,16 +281,17 @@ class SpeificState extends React.Component {
               backgroundColor:
                 activeTab === tabsList.recovered ? 'rgba(0,250,0,.2)' : null,
             }}
+            testid="stateSpecificRecoveredCasesContainer"
           >
             <p>Recovered</p>
             <img
               className="state-covid-details-icon"
-              alt="icon"
+              alt="state specific recovered cases pic"
               src="https://res.cloudinary.com/dniq4wbom/image/upload/v1695199313/recovered_1_gwsiyn.png"
             />
             <p>{total.recovered}</p>
-          </button>
-          <button
+          </li>
+          <li
             onClick={() => this.onClickTab(tabsList.deceased)}
             className="state-covid-details-box-4"
             style={{
@@ -304,18 +299,22 @@ class SpeificState extends React.Component {
                 activeTab === tabsList.deceased ? 'rgba(100,100,100,.3)' : null,
             }}
             type="button"
+            testid="stateSpecificDeceasedCasesContainer"
           >
             <p>Deceased</p>
             <img
               className="state-covid-details-icon"
-              alt="icon"
+              alt="state specific deceased cases pic"
               src="https://res.cloudinary.com/dniq4wbom/image/upload/v1695199300/breathing_1_f5oqyd.png"
             />
             <p>{total.deceased}</p>
-          </button>
-        </div>
+          </li>
+        </ul>
         <h1>Top Districts</h1>
-        <ul className="district-with-count-list-container">
+        <ul
+          className="district-with-count-list-container"
+          testid="topDistrictsUnorderedList"
+        >
           {districtDataList.map(each => (
             <li className="district-count-item" key={each.districtName}>
               <p>
@@ -336,7 +335,7 @@ class SpeificState extends React.Component {
     const {apiStatus} = this.state
     switch (apiStatus) {
       case apiStatusList.inprogress:
-        return <LoadingView />
+        return <LoadingView testId="stateDetailsLoader" />
       case apiStatusList.success:
         return this.renderStateRouteContainer(isThemeLight)
       default:

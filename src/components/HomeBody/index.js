@@ -199,7 +199,10 @@ class HomeBody extends React.Component {
       each.state_name.toLowerCase().includes(searchInput.toLowerCase()),
     )
     return (
-      <ul className="search-result-container">
+      <ul
+        className="search-result-container"
+        testid="searchResultsUnorderedList"
+      >
         {filterData.map(each => (
           <li className="search-result-item" key={each.state_code}>
             <Link to={`/state/${each.state_code}`} className="search-link">
@@ -251,15 +254,17 @@ class HomeBody extends React.Component {
   renderStateWiseDataTable = () => {
     const {covidData} = this.state
     const {sort} = this.state
+    const stateCodeList = Object.keys(covidData)
+    console.log(stateCodeList)
 
     const newList = []
     if (sort) {
-      statesList.forEach(each => newList.unshift(each))
+      stateCodeList.forEach(each => newList.push(each))
     } else {
-      statesList.forEach(each => newList.push(each))
+      stateCodeList.forEach(each => newList.unshift(each))
     }
     return (
-      <table className="state-wise-data-table">
+      <table className="state-wise-data-table" testid="stateWiseCovidDataTable">
         <thead>
           <tr>
             <th className="first-head">
@@ -268,7 +273,7 @@ class HomeBody extends React.Component {
                 type="button"
                 className="sort-button"
                 onClick={this.onSort}
-                data-testid="ascendingSort"
+                testid="ascendingSort"
               >
                 <FcGenericSortingAsc
                   size="20"
@@ -279,7 +284,7 @@ class HomeBody extends React.Component {
                 type="button"
                 className="sort-button"
                 onClick={this.onSortReverse}
-                data-testid="descendingSort"
+                testid="descendingSort"
               >
                 <FcGenericSortingDesc
                   size="20"
@@ -295,12 +300,22 @@ class HomeBody extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {newList.map(each => {
-            const stateObj = covidData[`${each.state_code}`]
+          {newList.map(eachStateCode => {
+            const stateObj = covidData[`${eachStateCode}`]
+            const stateDetailsObj = statesList.find(
+              each => each.state_code === eachStateCode,
+            )
             const {total, meta} = stateObj
+            if (stateObj === undefined) {
+              console.clear()
+            }
             return (
-              <tr key={each.state_code} width="20%">
-                <td className="state-name-col">{each.state_name}</td>
+              <tr key={eachStateCode} width="20%">
+                <td className="state-name-col">
+                  {stateDetailsObj === undefined
+                    ? 'Other'
+                    : stateDetailsObj.state_name}
+                </td>
                 <td className="confirmed-col">{total.confirmed}</td>
                 <td className="active-col">
                   {total.confirmed - total.recovered - total.deceased}
@@ -320,44 +335,57 @@ class HomeBody extends React.Component {
     <CovidContext.Consumer>
       {value => {
         const {isThemeLight} = value
+        console.log(isThemeLight)
         const totalOfData = this.getTotalOfData()
         /* const confirmed = covidData.reduce((obj1, obj2) => obj1.) */
 
         return (
           <>
             <div className="covid-total-detail-box">
-              <div className="covid-details-box-1">
+              <div
+                className="covid-details-box-1"
+                testid="countryWideConfirmedCases"
+              >
                 <p>Confirmed</p>
                 <img
                   className="covid-details-icon"
-                  alt="icon"
+                  alt="country wide confirmed cases pic"
                   src="https://res.cloudinary.com/dniq4wbom/image/upload/v1695199292/check-mark_1_je8igd.png"
                 />
                 <p>{totalOfData.confirmedTotal}</p>
               </div>
-              <div className="covid-details-box-2">
+              <div
+                className="covid-details-box-2"
+                testid="countryWideActiveCases"
+              >
                 <p>Active</p>
                 <img
                   className="covid-details-icon"
-                  alt="icon"
+                  alt="country wide active cases pic"
                   src="https://res.cloudinary.com/dniq4wbom/image/upload/v1695199306/protection_1_qtlacm.png"
                 />
                 <p>{totalOfData.activeTotal}</p>
               </div>
-              <div className="covid-details-box-3">
+              <div
+                className="covid-details-box-3"
+                testid="countryWideRecoveredCases"
+              >
                 <p>Recovered</p>
                 <img
                   className="covid-details-icon"
-                  alt="icon"
+                  alt="country wide recovered cases pic"
                   src="https://res.cloudinary.com/dniq4wbom/image/upload/v1695199313/recovered_1_gwsiyn.png"
                 />
                 <p>{totalOfData.recoveredTotal}</p>
               </div>
-              <div className="covid-details-box-4">
+              <div
+                className="covid-details-box-4"
+                testid="countryWideDeceasedCases"
+              >
                 <p>Deceased</p>
                 <img
                   className="covid-details-icon"
-                  alt="icon"
+                  alt="country wide deceased cases pic"
                   src="https://res.cloudinary.com/dniq4wbom/image/upload/v1695199300/breathing_1_f5oqyd.png"
                 />
                 <p>{totalOfData.deceasedTotal}</p>

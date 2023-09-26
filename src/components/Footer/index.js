@@ -1,4 +1,6 @@
-import {FiGithub, FiInstagram, FiTwitter} from 'react-icons/fi'
+import {FiTwitter} from 'react-icons/fi'
+import {VscGithubAlt} from 'react-icons/vsc'
+import {FaInstagram} from 'react-icons/fa'
 import CovidContext from '../../context/CovidContext'
 
 import './index.css'
@@ -17,8 +19,8 @@ const Footer = () => (
             we stand with everyone fighting on the front lines
           </p>
           <div className="footer-icon-container">
-            <FiGithub size="30" className="footer-icon" />
-            <FiInstagram size="30" className="footer-icon" />
+            <VscGithubAlt size="30" className="footer-icon" />
+            <FaInstagram size="30" className="footer-icon" />
             <FiTwitter size="30" className="footer-icon" />
           </div>
         </div>

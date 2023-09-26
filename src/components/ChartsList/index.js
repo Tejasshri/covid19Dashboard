@@ -70,6 +70,7 @@ class ChartsList extends React.Component {
       <div
         className="line-chart-container"
         style={{backgroundColor: this.getBgColor(category)}}
+        testid="lineChartsContainer"
       >
         <LineChart data={activeCategoryDataList} width={800} height={500}>
           <XAxis dataKey="date" />
@@ -92,6 +93,7 @@ class ChartsList extends React.Component {
       {this.renderSpreadChart('active')}
       {this.renderSpreadChart('recovered')}
       {this.renderSpreadChart('deceased')}
+      {this.renderSpreadChart('tested')}
     </>
   )
 
@@ -151,7 +153,7 @@ class ChartsList extends React.Component {
   render() {
     const {isLoading} = this.state
     return isLoading ? (
-      <LoadingView />
+      <LoadingView testId="timelinesDataLoader" />
     ) : (
       <div className="charts-container-list">
         <div className="bar-chart-container">{this.renderBarChart()}</div>

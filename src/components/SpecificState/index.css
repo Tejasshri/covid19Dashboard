@@ -47,6 +47,8 @@
 }
 
 .state-covid-total-detail-box {
+  list-style-type: none;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -59,17 +61,16 @@
 .state-covid-details-box-2,
 .state-covid-details-box-3,
 .state-covid-details-box-4 {
+  width: 240px;
   display: flex;
   flex-direction: column;
   align-items: center;
   font-size: 24px;
   margin: 0 0px;
   font-weight: 500;
-  width: 20%;
   border-radius: 10px;
-  border: 0;
+  border: 2px solid rgba(255, 255, 255, 0.1);
   @media (max-width: 768px) {
-    width: 45%;
     margin-bottom: 30px;
   }
   background-color: transparent;
@@ -119,4 +120,11 @@
   margin: 4px;
   font-weight: 600;
   color: aqua;
+}
+
+.link-button {
+  background-color: transparent;
+  color: inherit;
+  border: 0;
+  font-size: inherit;
 }

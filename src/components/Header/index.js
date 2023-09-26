@@ -41,12 +41,16 @@ class Header extends Component {
                 <ul className="header-link-container">
                   <li className="header-link-item">
                     <Link to="/" className={linkClassName}>
-                      Home
+                      <button className="link-button" type="button">
+                        Home
+                      </button>
                     </Link>
                   </li>
                   <li className="header-link-item">
                     <Link to="/about" className={linkClassName}>
-                      About
+                      <button className="link-button" type="button">
+                        About
+                      </button>
                     </Link>
                   </li>
                 </ul>
@@ -76,12 +80,16 @@ class Header extends Component {
                 <ul className="mobile-header-link-container">
                   <li className="header-link-item">
                     <Link to="/" className={linkClassName}>
-                      Home
+                      <button className="link-button" type="button">
+                        Home
+                      </button>
                     </Link>
                   </li>
                   <li className="header-link-item">
                     <Link to="/about" className={linkClassName}>
-                      About
+                      <button className="link-button" type="button">
+                        About
+                      </button>
                     </Link>
                   </li>
                 </ul>
